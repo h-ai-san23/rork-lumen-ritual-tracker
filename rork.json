@@ -1,0 +1,10 @@
+{
+  "apps": [
+    {
+      "name": "LUMEN",
+      "path": "ios-lumen",
+      "framework": "swift"
+    }
+  ],
+  "$schema": "https://rork.com/schema/rork.json"
+}
