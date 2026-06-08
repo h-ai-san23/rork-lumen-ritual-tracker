@@ -28,6 +28,15 @@ struct AdvisorView: View {
     private var remaining: Int { max(0, freeLimit - user.advisorQuestionsThisMonth) }
     private var canAsk: Bool { user.isPremium || remaining > 0 }
 
+    /// Shown only at the start of a conversation to help the user begin.
+    private let starterPrompts: [String] = [
+        "What order should I apply my products?",
+        "What from my shelf should I use tonight?",
+        "Anything running low or expiring soon?",
+        "How can I improve my evening ritual?"
+    ]
+    private var showStarters: Bool { messages.count <= 1 && !thinking }
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -47,6 +56,7 @@ struct AdvisorView: View {
                             withAnimation { proxy.scrollTo(messages.last?.id, anchor: .bottom) }
                         }
                     }
+                    if showStarters { starterRow }
                     inputBar
                 }
             }
@@ -124,6 +134,30 @@ struct AdvisorView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
+    private var starterRow: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: Space.s) {
+                ForEach(starterPrompts, id: \.self) { prompt in
+                    Button {
+                        guard canAsk else { showPaywall = true; return }
+                        send(prompt)
+                    } label: {
+                        Text(prompt)
+                            .font(.ui(13, .medium))
+                            .foregroundStyle(palette.textPrimary)
+                            .lineLimit(1)
+                            .padding(.horizontal, Space.l).padding(.vertical, 10)
+                            .background(palette.surface1)
+                            .clipShape(Capsule())
+                            .overlay(Capsule().strokeBorder(palette.hairline, lineWidth: 1))
+                    }
+                }
+            }
+            .padding(.horizontal, Space.l)
+        }
+        .padding(.bottom, Space.s)
+    }
+
     private var inputBar: some View {
         VStack(spacing: Space.s) {
             if !canAsk {
@@ -158,8 +192,8 @@ struct AdvisorView: View {
         .background(.ultraThinMaterial)
     }
 
-    private func send() {
-        let question = input.trimmingCharacters(in: .whitespaces)
+    private func send(_ preset: String? = nil) {
+        let question = (preset ?? input).trimmingCharacters(in: .whitespaces)
         guard !question.isEmpty, canAsk else { return }
         input = ""
         messages.append(AdvisorMessage(isUser: true, text: question))
