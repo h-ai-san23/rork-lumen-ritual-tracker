@@ -15,6 +15,7 @@ struct AdvisorView: View {
     let user: UserState
 
     @Query private var products: [Product]
+    @Query private var steps: [RitualStep]
     @State private var messages: [AdvisorMessage] = [
         AdvisorMessage(isUser: false, text: "I'm your LUMEN advisor. Ask me about your routine, ingredient order, or what to use from your shelf — I'll keep it calm and honest.")
     ]
@@ -165,8 +166,15 @@ struct AdvisorView: View {
         if !user.isPremium { user.advisorQuestionsThisMonth += 1; try? context.save() }
         thinking = true
 
+        let history = messages
         Task {
-            let reply = await AIAdvisor.respond(to: question, shelf: products)
+            let reply = await AIAdvisor.respond(
+                to: question,
+                history: history,
+                shelf: products,
+                steps: steps,
+                user: user
+            )
             thinking = false
             messages.append(AdvisorMessage(isUser: false, text: reply.text, suggestions: reply.suggestions))
         }
