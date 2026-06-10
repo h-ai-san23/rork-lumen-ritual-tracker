@@ -18,6 +18,7 @@ struct ShelfView: View {
     @State private var needsAttentionOnly = false
     @State private var showAdd = false
     @State private var showPaywall = false
+    @State private var showInsights = false
     @State private var selected: Product?
 
     private let columns = [GridItem(.flexible(), spacing: Space.m), GridItem(.flexible(), spacing: Space.m)]
@@ -60,6 +61,14 @@ struct ShelfView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
+                        if user.isPremium { showInsights = true } else { showPaywall = true }
+                    } label: {
+                        Image(systemName: "sparkles").font(.ui(16, .semibold)).foregroundStyle(palette.gold)
+                    }
+                    .accessibilityLabel("AI shelf insights")
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
                         if freeLimitReached { showPaywall = true } else { showAdd = true }
                     } label: {
                         Image(systemName: "plus").font(.ui(16, .semibold)).foregroundStyle(palette.accent)
@@ -68,6 +77,7 @@ struct ShelfView: View {
             }
             .sheet(isPresented: $showAdd) { AddProductSheet() }
             .sheet(item: $selected) { ProductDetailView(product: $0) }
+            .sheet(isPresented: $showInsights) { ShelfInsightsView(user: user) }
             .sheet(isPresented: $showPaywall) { PaywallView(user: user) }
         }
         .tint(palette.accent)
