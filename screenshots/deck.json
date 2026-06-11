@@ -1,0 +1,40 @@
+{
+  "theme": {
+    "style": "Deep warm near-black backgrounds lit by slow-burning gold and champagne light, evoking the intimacy of a candlelit vanity ritual. The visual language draws on molten gold, frosted obsidian glass, and soft volumetric halos — luxurious without being loud. Lighting is always directional and considered, like a beauty editorial. Textures feel tactile: fine grain, soft translucency, glowing edges. The overall mood is still, intentional, and premium — a world that rewards daily self-care.",
+    "headlineFont": "font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap')",
+    "headlineFontSize": 120,
+    "mockupIds": {
+      "iphone": "silver",
+      "ipad": "silver"
+    },
+    "palette": {
+      "primary": "#0D0B09",
+      "secondary": "#C49A38",
+      "accent": "#F2D078"
+    }
+  },
+  "slides": [
+    {
+      "label": "Today ritual ring",
+      "backgroundPrompt": "Abstract digital art featuring a large luminous orb of warm champagne gold and deep amber light emanating from the exact center of a near-black warm canvas, concentric translucent rings of molten gold dissolving outward into pure darkness, soft volumetric light rays bleeding gently upward like candlelight, fine suspended gold dust particles drifting in the lower two-thirds of the frame, the upper 30% a seamless deep obsidian void that anchors the glow below. 8K quality, ultra smooth gradients, premium feel, no text, no letters, no UI elements, no device mockups",
+      "backgroundUrl": "https://r2-pub.rork.com/app-store-screenshots/5e389df8-ce61-4c63-b633-b5ab24b502c7.png"
+    },
+    {
+      "label": "Progress trends",
+      "backgroundPrompt": "3D rendered scene of long sweeping arcs of burnished gold and cool dark bronze ribbons curving fluidly from the lower-left corner upward across a deep warm charcoal background, each ribbon edged with a cool silver-champagne rim light originating from the upper right, creating a sense of upward momentum and flow, subtle frosted glass planes drifting in the midground casting faint warm shadows, the upper region transitioning to a calm seamless near-black obsidian with a whisper of cool bronze at the far edges. 8K quality, ultra smooth gradients, premium feel, no text, no letters, no UI elements, no device mockups",
+      "backgroundUrl": "https://r2-pub.rork.com/app-store-screenshots/ddc07149-8566-4d68-a0ee-f2532c903a30.png"
+    },
+    {
+      "label": "Shelf collection",
+      "backgroundPrompt": "Abstract digital art of stacked translucent obsidian glass panels receding in a tight diagonal perspective from left to right, each sharp edge catching a fine line of warm champagne gold and pale amber light emanating from the far right, long horizontal golden reflections stretching luminously across the dark matte background, deep velvety shadows pooling between layers creating dramatic editorial depth, a soft fine grain texture across every glass surface, the upper 30% fading to an uncluttered near-black for clean text placement. 8K quality, ultra smooth gradients, premium feel, no text, no letters, no UI elements, no device mockups",
+      "backgroundUrl": "https://r2-pub.rork.com/app-store-screenshots/3d16dfef-6a45-4856-ad82-e0c3f3604da9.png"
+    }
+  ],
+  "headlines": {
+    "en": {
+      "Today ritual ring": "Your Daily<br>Ritual",
+      "Progress trends": "See Your<br>Progress",
+      "Shelf collection": "Your Shelf<br>One Place"
+    }
+  }
+}
