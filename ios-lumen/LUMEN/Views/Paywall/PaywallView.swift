@@ -13,7 +13,7 @@ struct PaywallView: View {
     @State private var purchases = PurchaseManager()
     let user: UserState
 
-    @State private var selectedPlan = GoldPlan.all.first!.id
+    @State private var selectedPlan: String = ""
 
     private let perks: [(String, String)] = [
         ("infinity", "Unlimited products & shelf analytics"),
@@ -53,6 +53,14 @@ struct PaywallView: View {
                 Spacer()
             }
         }
+        .alert("Something went wrong", isPresented: Binding(
+            get: { purchases.lastError != nil },
+            set: { if !$0 { purchases.lastError = nil } }
+        )) {
+            Button("OK") { purchases.lastError = nil }
+        } message: {
+            Text(purchases.lastError ?? "")
+        }
     }
 
     private var header: some View {
@@ -86,10 +94,23 @@ struct PaywallView: View {
         .overlay(RoundedRectangle(cornerRadius: Radius.card).strokeBorder(palette.hairline, lineWidth: 1))
     }
 
-    private var plans: some View {
-        VStack(spacing: Space.m) {
-            ForEach(GoldPlan.all) { plan in
-                planRow(plan)
+    @ViewBuilder private var plans: some View {
+        if purchases.isLoading {
+            ProgressView()
+                .tint(palette.accent)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, Space.l)
+        } else {
+            VStack(spacing: Space.m) {
+                ForEach(purchases.plans) { plan in
+                    planRow(plan)
+                }
+            }
+            .onAppear {
+                if selectedPlan.isEmpty {
+                    selectedPlan = purchases.plans.first(where: { $0.highlighted })?.id
+                        ?? purchases.plans.first?.id ?? ""
+                }
             }
         }
     }
@@ -136,17 +157,20 @@ struct PaywallView: View {
     private var cta: some View {
         VStack(spacing: Space.m) {
             GoldButton(title: purchases.isPurchasing ? "Processing…" : ctaTitle) {
-                guard let plan = GoldPlan.all.first(where: { $0.id == selectedPlan }) else { return }
+                guard !selectedPlan.isEmpty else { return }
                 Task {
-                    if await purchases.purchase(plan, user: user) { dismiss() }
+                    if await purchases.purchase(selectedPlan, user: user) { dismiss() }
                 }
             }
-            .disabled(purchases.isPurchasing)
+            .disabled(purchases.isPurchasing || selectedPlan.isEmpty)
 
             Button("Restore purchases") {
-                Task { _ = await purchases.restore(user: user) }
+                Task {
+                    if await purchases.restore(user: user) { dismiss() }
+                }
             }
             .font(.ui(14, .medium)).foregroundStyle(palette.textSecondary)
+            .disabled(purchases.isPurchasing)
         }
     }
 

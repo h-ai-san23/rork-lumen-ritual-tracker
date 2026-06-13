@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		XX298127CFBB2CF3FA631BXX /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = XXDCC169DE7B2F3C1C8B10XX /* RevenueCat */; };
 		XX97BD96A6A4B7EBD40DBDXX /* LumenWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = XX24946542CA25088809C8XX /* LumenWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -66,13 +67,25 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		XXEA2F5DF1C9E432C31AE7XX /* LumenWidget */ = {
+		105FC57C2E9EAD3100EA8BCF /* LUMEN */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = LumenWidget;
+			path = LUMEN;
 			sourceTree = "<group>";
-			exceptions = (
-				XXDC61078BB7A60CEB1107XX /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
-			);
+		};
+		105FC58C2E9EAD3200EA8BCF /* LUMENTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = LUMENTests;
+			sourceTree = "<group>";
+		};
+		105FC5962E9EAD3200EA8BCF /* LUMENUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = LUMENUITests;
+			sourceTree = "<group>";
+		};
+		AA00SHARED0000000000GRP1 /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Shared;
+			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -81,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				XX298127CFBB2CF3FA631BXX /* RevenueCat in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,25 +122,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		105FC57C2E9EAD3100EA8BCF /* LUMEN */ = {
+		XXEA2F5DF1C9E432C31AE7XX /* LumenWidget */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = LUMEN;
+			path = LumenWidget;
 			sourceTree = "<group>";
-		};
-		105FC58C2E9EAD3200EA8BCF /* LUMENTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = LUMENTests;
-			sourceTree = "<group>";
-		};
-		105FC5962E9EAD3200EA8BCF /* LUMENUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = LUMENUITests;
-			sourceTree = "<group>";
-		};
-		AA00SHARED0000000000GRP1 /* Shared */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Shared;
-			sourceTree = "<group>";
+			exceptions = (
+				XXDC61078BB7A60CEB1107XX /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
+			);
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -177,6 +179,7 @@
 			);
 			name = LUMEN;
 			packageProductDependencies = (
+				XXDCC169DE7B2F3C1C8B10XX /* RevenueCat */,
 			);
 			productName = LUMEN;
 			productReference = 105FC57A2E9EAD3100EA8BCF /* LUMEN.app */;
@@ -290,6 +293,9 @@
 				105FC5882E9EAD3200EA8BCF /* LUMENTests */,
 				105FC5922E9EAD3200EA8BCF /* LUMENUITests */,
 				XX54E83F236D70F9118AF3XX /* LumenWidget */,
+			);
+			packageReferences = (
+				XX4AC81916604C4344ADC0XX /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
 			);
 		};
 /* End PBXProject section */
@@ -745,6 +751,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		XX4AC81916604C4344ADC0XX /* XCRemoteSwiftPackageReference "purchases-ios-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		XXDCC169DE7B2F3C1C8B10XX /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = XX4AC81916604C4344ADC0XX /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCat;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 105FC5722E9EAD3100EA8BCF /* Project object */;
 }
