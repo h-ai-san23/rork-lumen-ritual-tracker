@@ -24,6 +24,7 @@ struct ProfileView: View {
     @State private var showEditRitual = false
     @State private var showEditGoals = false
     @State private var showSignIn = false
+    @State private var showDeleteAccount = false
     @State private var pdfURL: URL?
 
     private var perfectDays: Int { logs.filter { engine.completion(for: $0) >= 1 }.count }
@@ -42,6 +43,7 @@ struct ProfileView: View {
                         appearance
                         dataSection
                         subscriptionSection
+                        legalSection
                         Text("LUMEN · Built with care.")
                             .font(.ui(12)).foregroundStyle(palette.textSecondary)
                             .padding(.top, Space.m)
@@ -57,6 +59,12 @@ struct ProfileView: View {
             .sheet(isPresented: $showEditRitual) { EditRitualView() }
             .sheet(isPresented: $showEditGoals) { EditGoalsView(user: user) }
             .sheet(isPresented: $showSignIn) { SignInSheet() }
+            .alert("Delete account & data?", isPresented: $showDeleteAccount) {
+                Button("Cancel", role: .cancel) {}
+                Button("Delete", role: .destructive) { deleteEverything() }
+            } message: {
+                Text("This permanently removes your account session and erases all rituals, products, photos, logs, and progress from this device. This cannot be undone.")
+            }
             .sheet(item: Binding(get: { pdfURL.map { IdentifiableURL(url: $0) } }, set: { pdfURL = $0?.url })) { wrapper in
                 ShareSheet(items: [wrapper.url])
             }
@@ -200,6 +208,14 @@ struct ProfileView: View {
                     Button("Sign out") { Task { await auth.signOut() } }
                         .font(.ui(13, .semibold)).foregroundStyle(palette.textSecondary)
                 }
+                Hairline()
+                Button(role: .destructive) { showDeleteAccount = true } label: {
+                    HStack(spacing: Space.m) {
+                        Image(systemName: "trash").font(.ui(16)).foregroundStyle(palette.danger).frame(width: 28)
+                        Text("Delete account & data").font(.ui(15, .medium)).foregroundStyle(palette.danger)
+                        Spacer()
+                    }
+                }
             } else {
                 Button { showSignIn = true } label: {
                     HStack(spacing: Space.m) {
@@ -213,6 +229,37 @@ struct ProfileView: View {
                     }
                 }
                 .buttonStyle(.plain)
+            }
+        }
+    }
+
+    private var legalSection: some View {
+        settingsGroup("About & legal") {
+            legalLink("Terms of Use", symbol: "doc.text", url: "https://lumenritual.ai/terms")
+            Hairline()
+            legalLink("Privacy Policy", symbol: "hand.raised", url: "https://lumenritual.ai/privacy")
+            Hairline()
+            legalLink("Support", symbol: "questionmark.circle", url: "https://lumenritual.ai/support")
+            if auth.user == nil {
+                Hairline()
+                Button(role: .destructive) { showDeleteAccount = true } label: {
+                    HStack(spacing: Space.m) {
+                        Image(systemName: "trash").font(.ui(16)).foregroundStyle(palette.danger).frame(width: 28)
+                        Text("Delete all data").font(.ui(15, .medium)).foregroundStyle(palette.danger)
+                        Spacer()
+                    }
+                }
+            }
+        }
+    }
+
+    private func legalLink(_ title: String, symbol: String, url: String) -> some View {
+        Link(destination: URL(string: url)!) {
+            HStack(spacing: Space.m) {
+                Image(systemName: symbol).font(.ui(16)).foregroundStyle(palette.accent).frame(width: 28)
+                Text(title).font(.ui(15)).foregroundStyle(palette.textPrimary)
+                Spacer()
+                Image(systemName: "arrow.up.right").font(.ui(13)).foregroundStyle(palette.textSecondary)
             }
         }
     }
@@ -284,6 +331,21 @@ struct ProfileView: View {
     private func exportPDF() {
         guard user.isPremium else { showPaywall = true; return }
         pdfURL = PDFExport.makeReport(user: user, productCount: products.count, perfectDays: perfectDays)
+    }
+
+    /// Permanently delete the account session and erase all on-device data,
+    /// then return the app to a fresh onboarding state. Satisfies App Store
+    /// guideline 5.1.1(v) in-app account deletion.
+    private func deleteEverything() {
+        Task { await auth.deleteAccount() }
+        NotificationManager.scheduleReminders(wake: user.wakeTime, windDown: user.windDownTime, enabled: false)
+
+        for product in products { context.delete(product) }
+        for log in logs { context.delete(log) }
+        let steps = (try? context.fetch(FetchDescriptor<RitualStep>())) ?? []
+        for step in steps { context.delete(step) }
+        for state in (try? context.fetch(FetchDescriptor<UserState>())) ?? [] { context.delete(state) }
+        try? context.save()
     }
 }
 

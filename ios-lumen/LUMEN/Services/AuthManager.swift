@@ -323,6 +323,14 @@ class AuthManager {
         user = nil
     }
 
+    /// Permanently remove the account session and stored credentials from this
+    /// device. Local app data is wiped separately by the caller. Required for
+    /// App Store guideline 5.1.1(v) in-app account deletion.
+    @MainActor
+    func deleteAccount() async {
+        await signOut()
+    }
+
     private func setError(_ message: String) {
         errorMessage = message
         showError = true

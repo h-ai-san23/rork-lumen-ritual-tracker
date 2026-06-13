@@ -35,6 +35,7 @@ struct Palette: Sendable {
     let goldLight = Color(hex: 0xD9B877)
     let goldDark = Color(hex: 0xB8935A)
     let sage = Color(hex: 0x8AA678)
+    var danger: Color { isDark ? Color(hex: 0xE0816F) : Color(hex: 0xC1543E) }
 
     var hairline: Color { Color(hex: 0xC9A86A, alpha: isDark ? 0.18 : 0.22) }
 

@@ -177,9 +177,20 @@ struct PaywallView: View {
     private var ctaTitle: String { "Start LUMEN Gold" }
 
     private var footer: some View {
-        Text("Cancel anytime in Settings → Apple ID → Subscriptions. Your subscription renews automatically until cancelled. Payment is charged to your Apple account.")
-            .font(.ui(11)).foregroundStyle(palette.textSecondary.opacity(0.8))
-            .multilineTextAlignment(.center)
-            .padding(.horizontal, Space.m)
+        VStack(spacing: Space.s) {
+            Text("LUMEN Gold is an auto-renewing subscription. Payment is charged to your Apple account at confirmation. It renews automatically unless cancelled at least 24 hours before the end of the current period. Manage or cancel anytime in Settings → Apple ID → Subscriptions.")
+                .font(.ui(11)).foregroundStyle(palette.textSecondary.opacity(0.8))
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, Space.m)
+
+            HStack(spacing: Space.s) {
+                Link("Terms of Use", destination: URL(string: "https://lumenritual.ai/terms")!)
+                Text("·").foregroundStyle(palette.textSecondary.opacity(0.5))
+                Link("Privacy Policy", destination: URL(string: "https://lumenritual.ai/privacy")!)
+            }
+            .font(.ui(11, .semibold))
+            .tint(palette.accent)
+            .padding(.top, 2)
+        }
     }
 }
