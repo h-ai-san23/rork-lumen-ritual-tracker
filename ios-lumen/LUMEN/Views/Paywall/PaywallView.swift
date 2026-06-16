@@ -69,7 +69,7 @@ struct PaywallView: View {
                 AuraOrb(intensity: 0.9).frame(width: 120, height: 120)
                 Image(systemName: "crown.fill").font(.system(size: 40)).foregroundStyle(palette.gold)
             }
-            Text("LUMEN Gold")
+            Text("Lumira Gold")
                 .font(.serif(34, .semibold)).foregroundStyle(palette.textPrimary).tracking(-0.5)
             Text("Your full ritual, without limits.")
                 .font(.ui(16)).foregroundStyle(palette.textSecondary)
@@ -174,11 +174,11 @@ struct PaywallView: View {
         }
     }
 
-    private var ctaTitle: String { "Start LUMEN Gold" }
+    private var ctaTitle: String { "Start Lumira Gold" }
 
     private var footer: some View {
         VStack(spacing: Space.s) {
-            Text("LUMEN Gold is an auto-renewing subscription. Payment is charged to your Apple account at confirmation. It renews automatically unless cancelled at least 24 hours before the end of the current period. Manage or cancel anytime in Settings → Apple ID → Subscriptions.")
+            Text("Lumira Gold is an auto-renewing subscription. Payment is charged to your Apple account at confirmation. It renews automatically unless cancelled at least 24 hours before the end of the current period. Manage or cancel anytime in Settings → Apple ID → Subscriptions.")
                 .font(.ui(11)).foregroundStyle(palette.textSecondary.opacity(0.8))
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, Space.m)

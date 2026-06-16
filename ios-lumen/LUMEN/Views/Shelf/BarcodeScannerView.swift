@@ -82,7 +82,7 @@ struct BarcodeScannerView: View {
                 .font(.system(size: 48)).foregroundStyle(palette.accent)
             Text("Scanning needs a camera")
                 .font(.serif(22, .medium)).foregroundStyle(palette.textPrimary)
-            Text("Install LUMEN on your device via the Rork App to scan barcodes, or enter the number below.")
+            Text("Install Lumira on your device via the Rork App to scan barcodes, or enter the number below.")
                 .font(.ui(14)).foregroundStyle(palette.textSecondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, Space.xl)

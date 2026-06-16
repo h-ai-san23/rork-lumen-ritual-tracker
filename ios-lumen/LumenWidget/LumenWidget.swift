@@ -99,7 +99,7 @@ struct LumenWidgetView: View {
     private var fullWidget: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                Text("LUMEN")
+                Text("LUMIRA")
                     .font(.system(.caption, design: .serif).weight(.semibold))
                     .tracking(3)
                     .foregroundStyle(LumenWidgetColors.gold)

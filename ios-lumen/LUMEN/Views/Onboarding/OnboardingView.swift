@@ -126,7 +126,7 @@ struct OnboardingView: View {
             Spacer()
             AuraOrb(intensity: 0.8).frame(width: 140, height: 140)
             VStack(spacing: Space.m) {
-                Text("LUMEN")
+                Text("LUMIRA")
                     .font(.serif(40, .semibold))
                     .foregroundStyle(palette.textPrimary)
                     .tracking(4)
@@ -385,7 +385,7 @@ struct OnboardingView: View {
         switch current {
         case .welcome: "Begin"
         case .account: auth.user == nil ? "Maybe later" : "Continue"
-        case .reveal: "Enter LUMEN"
+        case .reveal: "Enter Lumira"
         default: "Continue"
         }
     }

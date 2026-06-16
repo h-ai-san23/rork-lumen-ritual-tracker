@@ -60,7 +60,7 @@ enum ProductAIService {
     private static let imageModel = "google/gemini-3.1-flash-image-preview"
 
     private static let systemPrompt = """
-    You are a self-care product cataloguer for the LUMEN app. Identify the product and \
+    You are a self-care product cataloguer for the Lumira app. Identify the product and \
     respond with STRICT JSON only, no markdown, matching exactly:
     {"name": string, "brand": string, "category": one of ["skin","hair","grooming","sleep","health"], \
     "paoMonths": integer (typical period-after-opening in months, 1-36), "notes": short one-sentence description}

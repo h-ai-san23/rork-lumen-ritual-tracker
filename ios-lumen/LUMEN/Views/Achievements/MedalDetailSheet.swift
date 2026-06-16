@@ -35,7 +35,7 @@ struct MedalDetailSheet: View {
 
             if unlocked {
                 let image = renderShareCard()
-                ShareLink(item: image, preview: SharePreview("My LUMEN medal", image: image)) {
+                ShareLink(item: image, preview: SharePreview("My Lumira medal", image: image)) {
                     HStack { Image(systemName: "square.and.arrow.up"); Text("Share card") }
                         .font(.ui(16, .semibold)).foregroundStyle(Color(hex: 0x1A1306))
                         .frame(maxWidth: .infinity).padding(.vertical, 16)
@@ -83,7 +83,7 @@ struct ShareCard: View {
             RadialGradient(colors: [palette.accent.opacity(0.25), .clear], center: .center, startRadius: 0, endRadius: 220)
 
             VStack(spacing: 22) {
-                Text("LUMEN").font(.serif(20, .semibold)).tracking(6).foregroundStyle(Color(hex: 0xC9A86A))
+                Text("LUMIRA").font(.serif(20, .semibold)).tracking(6).foregroundStyle(Color(hex: 0xC9A86A))
                 Spacer()
                 MetalMedal(medal: medal, unlocked: unlocked, size: 150, detailed: true)
                 VStack(spacing: 8) {

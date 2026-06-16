@@ -17,7 +17,7 @@ struct AdvisorView: View {
     @Query private var products: [Product]
     @Query private var steps: [RitualStep]
     @State private var messages: [AdvisorMessage] = [
-        AdvisorMessage(isUser: false, text: "I'm your LUMEN advisor. Ask me about your routine, ingredient order, or what to use from your shelf — I'll keep it calm and honest.")
+        AdvisorMessage(isUser: false, text: "I'm your Lumira advisor. Ask me about your routine, ingredient order, or what to use from your shelf — I'll keep it calm and honest.")
     ]
     @State private var input = ""
     @State private var thinking = false

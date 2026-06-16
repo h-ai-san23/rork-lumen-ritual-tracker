@@ -87,7 +87,7 @@ struct ProgressTabView: View {
                 .scrollClipDisabled()
             }
             if !user.isPremium {
-                Text("Free plan keeps the last 30 days. LUMEN Gold keeps your full history.")
+                Text("Free plan keeps the last 30 days. Lumira Gold keeps your full history.")
                     .font(.ui(12)).foregroundStyle(palette.textSecondary)
             }
         }
@@ -233,7 +233,7 @@ struct ProgressTabView: View {
                         Text("Unlock correlations between your\nhabits and your results.")
                             .font(.ui(15, .medium)).foregroundStyle(palette.textPrimary)
                             .multilineTextAlignment(.center)
-                        GoldButton(title: "Unlock with LUMEN Gold") { showPaywall = true }
+                        GoldButton(title: "Unlock with Lumira Gold") { showPaywall = true }
                             .frame(maxWidth: 280)
                     }
                     .padding(Space.l)
@@ -345,7 +345,7 @@ enum Insights {
         if out.isEmpty {
             out.append(Insight(
                 symbol: "hourglass",
-                text: "LUMEN is still learning your patterns. Log a few more days — rate your skin and sleep — and personalised insights will appear here."))
+                text: "Lumira is still learning your patterns. Log a few more days — rate your skin and sleep — and personalised insights will appear here."))
         }
         return out
     }

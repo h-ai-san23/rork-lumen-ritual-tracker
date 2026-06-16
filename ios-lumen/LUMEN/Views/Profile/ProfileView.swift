@@ -44,7 +44,7 @@ struct ProfileView: View {
                         dataSection
                         subscriptionSection
                         legalSection
-                        Text("LUMEN · Built with care.")
+                        Text("Lumira · Built with care.")
                             .font(.ui(12)).foregroundStyle(palette.textSecondary)
                             .padding(.top, Space.m)
                         Color.clear.frame(height: 40)
@@ -93,7 +93,7 @@ struct ProfileView: View {
             HStack(spacing: Space.m) {
                 Image(systemName: "crown.fill").font(.ui(20)).foregroundStyle(Color(hex: 0x1A1306))
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Upgrade to LUMEN Gold").font(.ui(16, .bold)).foregroundStyle(Color(hex: 0x1A1306)).lineLimit(1).minimumScaleFactor(0.8)
+                    Text("Upgrade to Lumira Gold").font(.ui(16, .bold)).foregroundStyle(Color(hex: 0x1A1306)).lineLimit(1).minimumScaleFactor(0.8)
                     Text("Unlimited everything · from $0.92/mo").font(.ui(12)).foregroundStyle(Color(hex: 0x1A1306).opacity(0.7)).lineLimit(1).minimumScaleFactor(0.8)
                 }
                 Spacer()
@@ -269,7 +269,7 @@ struct ProfileView: View {
             HStack {
                 Label("Plan", systemImage: "crown.fill").font(.ui(15)).foregroundStyle(palette.textPrimary)
                 Spacer()
-                Text(user.isPremium ? "LUMEN Gold" : "Free").font(.ui(15, .medium)).foregroundStyle(user.isPremium ? palette.accent : palette.textSecondary)
+                Text(user.isPremium ? "Lumira Gold" : "Free").font(.ui(15, .medium)).foregroundStyle(user.isPremium ? palette.accent : palette.textSecondary)
             }
             if user.isPremium {
                 Hairline()
