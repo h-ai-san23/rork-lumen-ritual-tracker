@@ -120,7 +120,10 @@ final class PurchaseManager {
             let result = try await Purchases.shared.purchase(package: package)
             if result.userCancelled { return false }
             let active = result.customerInfo.entitlements["premium"]?.isActive == true
-            if active { user.isPremium = true }
+            if active {
+                user.isPremium = true
+                lastError = nil
+            }
             return active
         } catch ErrorCode.purchaseCancelledError {
             return false
@@ -128,9 +131,26 @@ final class PurchaseManager {
             lastError = "Your purchase is pending approval."
             return false
         } catch {
+            // A purchase can complete while the immediate response still reports an
+            // error (e.g. transient sandbox/receipt hiccups). Re-check the current
+            // entitlement before surfacing anything so a successful purchase never
+            // shows a spurious error to the user.
+            if await isPremiumActive() {
+                user.isPremium = true
+                lastError = nil
+                return true
+            }
             lastError = error.localizedDescription
             return false
         }
+    }
+
+    /// Refresh and check whether the premium entitlement is currently active.
+    private func isPremiumActive() async -> Bool {
+        if let info = try? await Purchases.shared.customerInfo() {
+            return info.entitlements["premium"]?.isActive == true
+        }
+        return false
     }
 
     /// Restore prior purchases. Returns true if a premium entitlement was found.
@@ -141,9 +161,14 @@ final class PurchaseManager {
             let info = try await Purchases.shared.restorePurchases()
             let active = info.entitlements["premium"]?.isActive == true
             user.isPremium = active
-            if !active { lastError = "No active subscription found to restore." }
+            if active { lastError = nil } else { lastError = "No active subscription found to restore." }
             return active
         } catch {
+            if await isPremiumActive() {
+                user.isPremium = true
+                lastError = nil
+                return true
+            }
             lastError = error.localizedDescription
             return false
         }
